@@ -62,12 +62,13 @@ const { developmentChains } = require("../helper-hardhat-config")
                   ).to.be.revertedWith(error)
               })
               it("reverts if its not the owner", async function () {
+                const error="not owner"
                   await nftMarketplace.listItem(basicNft.address, TOKEN_ID, PRICE)
                   nftMarketplace = nftMarketplaceContract.connect(user)
                   await basicNft.approve(user.address, TOKEN_ID)
                   await expect(
                       nftMarketplace.cancelListing(basicNft.address, TOKEN_ID)
-                  ).to.be.revertedWith("not owner")
+                  ).to.be.revertedWith(error)
               })
               it("cancels listing and emits an event", async function () {
                   await nftMarketplace.listItem(basicNft.address, TOKEN_ID, PRICE)
